@@ -1,6 +1,8 @@
 import argparse
 import os.path as osp
 import time
+import os
+import sys
 
 import numpy as np
 
@@ -12,6 +14,10 @@ from config import make_cfg
 from dataset import test_data_loader
 from loss import Evaluator
 from model import create_model
+
+# # Add the path to the FACT repository
+# fact_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../..', 'FACT'))
+# sys.path.append(fact_path)
 
 
 class Tester(SingleTester):
@@ -83,8 +89,17 @@ class Tester(SingleTester):
             transform=release_cuda(data_dict['transform']),
         )
 
+import debugpy
+
+def start_debug():
+    debugpy.listen(5678)
+    print("Wait for debugger!")
+    debugpy.wait_for_client()
+    print("Attached!")
 
 def main():
+    if True:
+        start_debug()
     cfg = make_cfg()
     tester = Tester(cfg)
     tester.run()

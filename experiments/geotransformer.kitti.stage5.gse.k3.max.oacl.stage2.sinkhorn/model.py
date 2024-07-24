@@ -71,7 +71,7 @@ class GeoTransformer(nn.Module):
 
         # Downsample point clouds
         feats = data_dict['features'].detach()
-        transform = data_dict['transform'].detach()
+        transform = data_dict['transform'].detach()  # NOTE (LUDDE): This is the GT transform 
 
         ref_length_c = data_dict['lengths'][-1][0].item()
         ref_length_f = data_dict['lengths'][1][0].item()
@@ -91,7 +91,7 @@ class GeoTransformer(nn.Module):
         output_dict['src_points_c'] = src_points_c
         output_dict['ref_points_f'] = ref_points_f
         output_dict['src_points_f'] = src_points_f
-        output_dict['ref_points'] = ref_points
+        output_dict['ref_points'] = ref_points  # NOTE: I can feed these two pcs into FACT
         output_dict['src_points'] = src_points
 
         # 1. Generate ground truth node correspondences
