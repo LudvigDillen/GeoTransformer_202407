@@ -6,6 +6,18 @@ import sys
 
 import numpy as np
 
+# NOTE: When run from geotransformer_with_fact()
+# Add the path to the FACT repository
+fact_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+# print("\n", fact_path, "\n")
+sys.path.append(fact_path)
+
+# NOTE: When called from data_handling.py
+# Add the path to the FACT repository
+# local_path = os.path.abspath(os.path.dirname(__file__))
+# print("\n", fact_path, "\n")
+# sys.path.append(local_path)
+
 from geotransformer.engine import SingleTester
 from geotransformer.utils.common import ensure_dir, get_log_string
 from geotransformer.utils.torch import release_cuda
@@ -15,9 +27,6 @@ from dataset import test_data_loader
 from loss import Evaluator
 from model import create_model
 
-# # Add the path to the FACT repository
-# fact_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../..', 'FACT'))
-# sys.path.append(fact_path)
 
 
 class Tester(SingleTester):
@@ -92,7 +101,7 @@ class Tester(SingleTester):
 import debugpy
 
 def start_debug():
-    debugpy.listen(5678)
+    debugpy.listen(5679)
     print("Wait for debugger!")
     debugpy.wait_for_client()
     print("Attached!")

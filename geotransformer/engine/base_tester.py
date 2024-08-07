@@ -4,6 +4,8 @@ import os.path as osp
 import time
 import json
 import abc
+import ast
+from omegaconf import OmegaConf
 
 import torch
 import ipdb
@@ -18,6 +20,7 @@ def inject_default_parser(parser=None):
     parser.add_argument('--snapshot', default=None, help='load from snapshot')
     parser.add_argument('--test_epoch', type=int, default=None, help='test epoch')
     parser.add_argument('--test_iter', type=int, default=None, help='test iteration')
+    parser.add_argument('--fact_args', default=None, help='arguments for FACT')
     return parser
 
 
@@ -26,6 +29,8 @@ class BaseTester(abc.ABC):
         # parser
         parser = inject_default_parser(parser)
         self.args = parser.parse_args()
+        if self.args.fact_args is not None:
+            self.args.fact_args = OmegaConf.create(ast.literal_eval(self.args.fact_args))
 
         # logger
         log_file = osp.join(cfg.log_dir, 'test-{}.log'.format(time.strftime('%Y%m%d-%H%M%S')))

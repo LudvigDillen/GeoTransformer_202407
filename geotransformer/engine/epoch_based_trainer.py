@@ -85,7 +85,7 @@ class EpochBasedTrainer(BaseTrainer):
         self.before_train_epoch(self.epoch)
         self.optimizer.zero_grad()
         total_iterations = len(self.train_loader)
-        for iteration, data_dict in enumerate(self.train_loader):
+        for iteration, data_dict in enumerate(self.train_loader):  # NOTE: Here we can see how to load the data
             self.inner_iteration = iteration + 1
             self.iteration += 1
             data_dict = to_cuda(data_dict)
@@ -131,7 +131,7 @@ class EpochBasedTrainer(BaseTrainer):
             if osp.exists(last_snapshot):
                 os.remove(last_snapshot)
 
-    def inference_epoch(self):
+    def inference_epoch(self):  
         self.set_eval_mode()
         self.before_val_epoch(self.epoch)
         summary_board = SummaryBoard(adaptive=True)

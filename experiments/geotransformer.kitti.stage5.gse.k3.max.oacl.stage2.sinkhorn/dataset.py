@@ -1,3 +1,11 @@
+# import os
+# import sys
+
+# # Add the path to the FACT repository
+# fact_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+# # print("\n", fact_path, "\n")
+# sys.path.append(fact_path)
+
 from geotransformer.datasets.registration.kitti.dataset import OdometryKittiPairDataset
 from geotransformer.utils.data import (
     registration_collate_fn_stack_mode,
@@ -7,7 +15,7 @@ from geotransformer.utils.data import (
 
 
 def train_valid_data_loader(cfg, distributed):
-    train_dataset = OdometryKittiPairDataset(
+    train_dataset = OdometryKittiPairDataset(  # TODO: Unclear if I should use augmentation or not. I already have my augmentation
         cfg.data.dataset_root,
         'train',
         point_limit=cfg.train.point_limit,

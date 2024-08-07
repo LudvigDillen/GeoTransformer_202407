@@ -16,7 +16,7 @@ class Trainer(EpochBasedTrainer):
         super().__init__(cfg, max_epoch=cfg.optim.max_epoch)
 
         # dataloader
-        start_time = time.time()
+        start_time = time.time()  # NOTE: This below is probably what I need to train on KITTI
         train_loader, val_loader, neighbor_limits = train_valid_data_loader(cfg, self.distributed)
         loading_time = time.time() - start_time
         message = 'Data loader created: {:.3f}s collapsed.'.format(loading_time)
@@ -51,8 +51,17 @@ class Trainer(EpochBasedTrainer):
         loss_dict.update(result_dict)
         return output_dict, loss_dict
 
+import debugpy
+
+def start_debug():
+    debugpy.listen(5679)
+    print("Wait for debugger!")
+    debugpy.wait_for_client()
+    print("Attached!")
 
 def main():
+    if True:
+        start_debug()
     cfg = make_cfg()
     trainer = Trainer(cfg)
     trainer.run()
