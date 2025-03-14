@@ -15,7 +15,7 @@ from geotransformer.utils.data import (
 
 
 def train_valid_data_loader(cfg, distributed):
-    train_dataset = OdometryKittiPairDataset(  # TODO: Unclear if I should use augmentation or not. I already have my augmentation
+    train_dataset = OdometryKittiPairDataset(
         cfg.data.dataset_root,
         'train',
         point_limit=cfg.train.point_limit,
