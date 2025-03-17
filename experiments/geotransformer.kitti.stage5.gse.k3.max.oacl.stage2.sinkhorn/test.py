@@ -107,7 +107,7 @@ def start_debug():
     print("Attached!")
 
 def main():
-    if True:
+    if False:
         start_debug()
     cfg = make_cfg()
     tester = Tester(cfg)
